@@ -1,42 +1,60 @@
-from tools.emailTool import send_email
-from tools.read_email_tool import read_emails
+from reasoning.intent import detect_intent
+from tools.registry import TOOLS
+
 
 class EmailAgent:
+
     def run(self):
-        print("Welcome to the Email Agent!")
-        print("1. Send Email")
-        print("2. Read Latest Emails")
 
-        choice = input("\nChoose an option: ")
-        if choice == "1":
+        while True:
 
-            receiver = input("Enter the receiver's email address: ")
-            subject =  input("Enter the subject of the email: ")
-            body = input("Enter the body of the email: ")
+            user_input = input("\nWhat would you like me to do?\n> ")
 
-            result = send_email(receiver, subject, body)
+            result = detect_intent(user_input)
 
-            if result["success"]:
-                print("Email sent successfully!")
+            intent = result["intent"]
+
+            if intent == "send_email":
+
+                receiver = input("Recipient: ")
+                subject = input("Subject: ")
+                body = input("Body: ")
+
+                tool = TOOLS["send_email"]["function"]
+
+                response = tool(receiver, subject, body)
+
+                if response["success"]:
+                    print("Email Sent Successfully!")
+
+                else:
+                    print(response["error"])
+
+            elif intent == "read_email":
+
+                tool = TOOLS["read_email"]["function"]
+
+                response = tool()
+
+                if response["success"]:
+
+                    print()
+
+                    for mail in response["emails"]:
+
+                        print(f"From    : {mail['from']}")
+                        print(f"Subject : {mail['subject']}")
+                        print("-" * 50)
+
+                else:
+
+                    print(response["error"])
+
+            elif intent == "exit":
+
+                print("Goodbye!")
+                break
+
             else:
-                print(f"Failed to send email: {result['error']}")
-        elif choice == "2":
-            result = read_emails()
 
-            if result["success"]:
-
-                print("\nLatest Emails\n")
-
-                for mail in result["emails"]:
-
-                    print(f"From    : {mail['from']}")
-                    print(f"Subject : {mail['subject']}")
-                    print("-" * 50)
-
-            else:
-
-                print(result["error"])
-        
-        else:
-            print("Invalid choice. Please select either 1 or 2.")
-
+                print("Sorry, I didn't understand.")

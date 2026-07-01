@@ -20,9 +20,9 @@ class EmailAgent:
                 subject = input("Subject: ")
                 body = input("Body: ")
 
-                tool = TOOLS["send_email"]["function"]
+                tool = TOOLS["send_email"]
 
-                response = tool(receiver, subject, body)
+                response = tool.function(receiver, subject, body)
 
                 if response["success"]:
                     print("Email Sent Successfully!")
@@ -32,9 +32,9 @@ class EmailAgent:
 
             elif intent == "read_email":
 
-                tool = TOOLS["read_email"]["function"]
+                tool = TOOLS["read_email"]
 
-                response = tool()
+                response = tool().function()
 
                 if response["success"]:
 

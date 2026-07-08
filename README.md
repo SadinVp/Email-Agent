@@ -1,5 +1,14 @@
 # Email Agent
 
+![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![SMTP](https://img.shields.io/badge/SMTP-Email%20Protocol-blue?style=for-the-badge)
+![IMAP](https://img.shields.io/badge/IMAP-Email%20Protocol-green?style=for-the-badge)
+![OpenRouter](https://img.shields.io/badge/OpenRouter-LLM-orange?style=for-the-badge)
+![AI Agent](https://img.shields.io/badge/AI-Agent-purple?style=for-the-badge)
+![Gmail](https://img.shields.io/badge/Gmail-Automation-EA4335?style=for-the-badge&logo=gmail&logoColor=white)
+![dotenv](https://img.shields.io/badge/python--dotenv-Environment%20Variables-4CAF50?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
 A Python project that builds an AI agent from scratch to understand how modern AI agents work internally before using frameworks like LangChain or LangGraph.
 
 Instead of relying on existing libraries, this project focuses on implementing every component manually, including tools, an agent, a tool registry, and a reasoning layer.

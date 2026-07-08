@@ -6,4 +6,7 @@ class Tool:
         self.parameters = parameters
         self.function = function
 
+    def execute(self, *args):
+        return self.function(*args)
+
 

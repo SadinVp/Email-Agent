@@ -15,14 +15,12 @@ class EmailAgent:
             intent = result["intent"]
 
             if intent == "send_email":
+                
+                tool = TOOLS[intent]
+                arguments = self.collect_arguments(tool)
 
-                receiver = input("Recipient: ")
-                subject = input("Subject: ")
-                body = input("Body: ")
+                response = tool.execute(*arguments)
 
-                tool = TOOLS["send_email"]
-
-                response = tool.function(receiver, subject, body)
 
                 if response["success"]:
                     print("Email Sent Successfully!")
@@ -32,9 +30,10 @@ class EmailAgent:
 
             elif intent == "read_email":
 
-                tool = TOOLS["read_email"]
+                tool = TOOLS[intent]
+                arguments = self.collect_arguments(tool)
 
-                response = tool().function()
+                response = tool.execute(*arguments)
 
                 if response["success"]:
 
@@ -58,3 +57,13 @@ class EmailAgent:
             else:
 
                 print("Sorry, I didn't understand.")
+    
+    def collect_arguments(self,tool):
+
+        arguments = []
+        for parameter in tool.parameters:
+            value = input(f"{parameter}: ")
+            arguments.append(value)
+        
+        return arguments
+
